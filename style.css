@@ -1,0 +1,593 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #f7dafd;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    font-family: "Dosis", sans-serif;
+    font-weight: 600;
+}
+
+/* HEADER*/
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(211, 137, 220);
+    height: 160px;
+    width: 100%;
+    padding: 0 20px;
+}
+
+/* LOGO */
+.logo {
+    cursor: pointer;
+    text-decoration: none; 
+}
+
+.logo img, .logo svg {
+    width: 400px; 
+    height: auto;  
+    cursor: pointer;
+}
+
+
+/* ESTILO DO NAV */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+
+.menu-actions {
+    display: flex;
+    align-items: center;
+}
+
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    z-index: 1500;
+}
+
+.carrinho {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    z-index: 1500;
+}
+
+.carrinho img {
+    width: 40px;
+    height: auto;
+    cursor: pointer;
+}
+
+.carrinho .item-count { 
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #ff1ba7;
+    color: azure;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    z-index: 1600;
+}
+
+.nav-menu {
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 20px;
+}
+
+.nav-menu ul {
+list-style: none;
+display: flex;
+align-items: center;
+gap: 20px;    
+}
+
+.nav-menu ul li a {
+    color: azure;
+    text-decoration: none;
+    font-size: 30px;
+}
+
+.menu-toggle .bar {
+    width: 50px;
+    height: 5px;
+    background-color: #ff1ba7;
+    margin: 4px 0;
+}
+
+/*MAIN*/
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+#all {
+    font-size: 24px;
+    display: flex;
+    flex-wrap: wrap;    
+    justify-content: center;
+    gap: 25px;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+/* PRODUTOS */
+
+.valor-produto {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ff1ba7;
+    color: azure;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.produto {
+    width: 300px;
+    max-width: 300px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    box-sizing: border-box;
+    position: relative;
+ }
+
+.produto .imagem-produto img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.tamanhos {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    list-style: none;
+    padding: 0;
+}
+
+.tamanhos li {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.tamanho-selecionado {
+background-color: aqua;
+border: 1px solid black;
+}
+
+.tamanhos li:hover {
+    background-color: #ff1ba7;
+    color: azure;
+}
+
+.tamanhos li.tamanho-selecionado {
+background-color: #ff1ba7;
+color: azure;
+}
+
+.produto h3 {
+    font-family: "Dosis", sans-serif;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.btn-comprar {
+margin-top: 10px;
+padding: 10px 20px;
+background-color: rgb(211, 137, 220);;
+color: azure;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+margin: 10px auto;
+font-size: 20px;
+}
+
+.btn-comprar:hover {
+background-color: #ff1ba7;
+}
+
+/*FOOTER*/
+footer {
+    background-color: rgb(211, 137, 220);
+    color: #000000;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+/* BANNER */
+.banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25vh;    
+    margin: 20px; 
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+#banner-video, #banner-videocelu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+#banner-video {
+    display: block;
+}
+
+#banner-videocelu {
+    display: none;
+}
+
+.checkout-bar {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background-color: #ff1ba892;
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    display: none; /* Inicia oculto */
+}
+
+.checkout-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkout-bar.active {
+    display: block;
+}
+
+/*RESPONSIVIDADE TABLET*/
+@media (max-width: 768px) {
+
+    header {
+      flex-direction: column;
+      height: auto;
+      padding: 10px;
+    }
+
+    .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: rgba(51, 51, 51, 0.8);
+        width: 100%;
+        max-width: 300px;
+        z-index: 1000;
+        transition: transform 0.3s ease;
+        transform: translateY(-100%);
+        display: none;
+    }
+
+    .nav-menu.active {
+        display: flex;
+        background-color: #ff1ba88f;
+        transform: translateY(0);
+        height: 100%;
+    }
+
+    .nav-menu ul {
+        flex-direction: column;
+        gap: 10px;
+        padding: 0;
+        margin: 20px;
+    }
+
+    .menu-actions {
+        display: flex;
+        align-items: center;
+    }
+
+    .menu-toggle {
+        display: flex;
+        position: fixed;
+        top: 40px;
+        left: 40px;
+        width: 30px;
+        height: 20px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 1500;
+    }
+
+    .menu-toggle .bar {
+        width: 50px;
+        height: 5px;
+        background-color: #ff1ba7;
+        margin: 4px 0;
+    }
+
+.carrinho {
+    margin-left: auto;
+    margin-top: 10px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1500;
+}
+.carrinho img {
+    width: 40px;
+    height: auto;
+    cursor: pointer;
+}
+
+.carrinho .item-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #ff1ba7;
+    color: azure;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+
+.checkout-bar {
+    width: 100%; /* Em telas menores, ocupar toda a largura */
+    left: 0;
+}
+
+    .logo {
+      margin-top: 10px;
+      width: 250px;
+    }
+
+    .logo img, .logo svg {
+       width: 250px;
+       height: auto;
+       margin-top: 0;
+    }
+
+    #all {
+       flex-direction: column;
+       align-items: center;
+       margin: 10px 0; 
+    }
+
+    .produto {
+        width: calc(100% - 20px);
+        max-width: 300px;
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .banner {
+        height: 30vh;
+    }
+
+    #banner-video {
+        display: none;
+    }
+    
+    #banner-videocelu {
+        display: block;
+    }
+
+    .fixed-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+        from {
+            transform: translateY(-100%);
+        }
+        to {
+            transform: translateY(0);
+        }
+    }
+
+    /*RESPONSIVIDADE CELU*/
+@media (max-width: 375px) {
+
+    header {
+      flex-direction: column;
+      height: auto;
+      padding: 10px;
+    }
+
+    .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: rgba(51, 51, 51, 0.8);
+        width: 100%;
+        max-width: 300px;
+        z-index: 1000;
+        transition: transform 0.3s ease;
+        transform: translateY(-100%);
+        display: none;
+    }
+
+    .nav-menu.active {
+        display: flex;
+        background-color: #ff1ba88f;
+        transform: translateY(0);
+        height: 100%;
+    }
+
+    .nav-menu ul {
+        flex-direction: column;
+        gap: 10px;
+        padding: 0;
+        margin: 20px;
+    }
+
+    .menu-actions {
+        display: flex;
+        align-items: center;
+    }
+
+    .menu-toggle {
+        display: flex;
+        position: fixed;
+        top: 40px;
+        left: 40px;
+        width: 30px;
+        height: 20px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 1500;
+    }
+
+    .menu-toggle .bar {
+        width: 50px;
+        height: 5px;
+        background-color: #ff1ba7;
+        margin: 4px 0;
+    }
+
+.carrinho {
+    margin-left: auto;
+    margin-top: 10px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1500;
+}
+.carrinho img {
+    width: 40px;
+    height: auto;
+    cursor: pointer;
+}
+
+.carrinho .item-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #ff1ba7;
+    color: azure;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+
+.checkout-bar {
+    width: 100%; 
+    left: 0;
+}
+
+    .logo {
+      margin-top: 10px;
+      width: 250px;
+    }
+
+    .logo img, .logo svg {
+       width: 250px;
+       height: auto;
+       margin-top: 0;
+    }
+
+    #all {
+       flex-direction: column;
+       align-items: center;
+       margin: 10px 0; 
+    }
+
+    .produto {
+        width: calc(100% - 20px);
+        max-width: 300px;
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .banner {
+        height: 30vh;
+    }
+
+    #banner-video {
+        display: none;
+    }
+    
+    #banner-videocelu {
+        display: block;
+    }
+
+    .fixed-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+        from {
+            transform: translateY(-100%);
+        }
+        to {
+            transform: translateY(0);
+        }
+    }
+  }
+}
