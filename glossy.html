@@ -14,63 +14,68 @@
     <link rel="manifest" href="assets/site.webmanifest">
 
     <title>Glossy dotcom.</title>
-<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-   <header>
-    <a href="glossy.html" class="logo">
-    <img src="assets/LOGLOSSY.svg" alt="logo">
-    </a>
-    
-    <div class="menu-actions">
-        <div class="menu-toggle" id="menu-toggle">
-         <img src="assets/burguer.png" alt="menu">
+    <header>
+        <a href="glossy.html" class="logo">
+            <img src="assets/LOGLOSSY.svg" alt="logo">
+        </a>
+        
+        <div class="menu-actions">
+            <div class="menu-toggle" id="menu-toggle">
+                <img src="assets/burguer.png" alt="menu">
+            </div>
+            <div class="carrinho">
+                <img src="assets/cartdesk.png" alt="carrinho">
+                <span class="item-count">0</span>
+            </div>
         </div>
-        <div class="carrinho">
-            <img src="assets/cartdesk.png" alt="carrinho">
-            <span class="item-count">0</span>
-        </div>
-    </div>
 
-    <nav class="nav-menu">
+        <nav class="nav-menu">
             <ul>
-             <li><a href="produtos.html">Produtos</a></li>
-             <li><a href="contato.html">Contato</a></li>
-             </ul>
-    </nav>
-</header>
+                <li><a href="produtos.html">Produtos</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
 
-     <main id="container">
-       <div class="banner">
-         <video id="banner-video" autoplay muted loop>
-            <source src="assets/bannervideo.mp4" type="video/mp4">
-        </video>
-        <video id="banner-videotablet" autoplay muted loop>
-            <source src="assets/bannervideotablet.mp4" type="video/mp4">
-        </video>
-        <video id="banner-videocelu" autoplay muted loop>
-            <source src="assets/bannervideocelu.mp4">
-        </video>
-      </div>
+    <main id="container">
+        <div class="banner">
+            <video id="banner-video" autoplay muted loop>
+                <source src="assets/bannervideo.mp4" type="video/mp4">
+            </video>
+            <video id="banner-videotablet" autoplay muted loop>
+                <source src="assets/bannervideotablet.mp4" type="video/mp4">
+            </video>
+            <video id="banner-videocelu" autoplay muted loop>
+                <source src="assets/bannervideocelu.mp4">
+            </video>
+        </div>
 
-<section id="all" class="produtos"></section>
+        <section id="all" class="produtos"></section>
 
-<div class="checkout-bar">
-     <div class="checkout-content">
-        <h3>Resumo:</h3>
-     
-        <p>Total de itens: <span id="item-count-checkout">0</span></p>
-        <ul id="checkout-list"></ul>
-        <button class="btn-finalizar">Finalizar Compra</button>
-     </div>
-  </div>
-</main>
+        <div class="checkout-bar">
+            <div class="close-btn">&times;</div> <!-- Ícone de fechar -->
+            <div class="checkout-content">
+                <h3>Resumo:</h3>
+            
+                <p>Total de itens: <span id="item-count-checkout">0</span></p>
 
-     <footer>
+                <ul id="checkout-list">
+                    <!-- Itens do carrinho são adicionados dinamicamente aqui -->
+                </ul>
+            
+                <button id="btn-finalizar">Finalizar Compra</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
         <p>&copy; 2024 Glossy dotcom. Todos os direitos reservados.</p>
-     </footer>
+    </footer>
 
     <script src="script.js"></script>
-    </body>
+</body>
 </html>

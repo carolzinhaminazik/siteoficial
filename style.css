@@ -5,7 +5,7 @@
 }
 
 body {
-    background: #f7dafd;
+    background: #f1c4fa;
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
@@ -86,6 +86,25 @@ nav {
     padding: 2px 6px;
     font-size: 12px;
     z-index: 1600;
+}
+
+.close-btn {
+    width: 30px; /* Largura da área do botão */
+    height: 30px; /* Altura da área do botão */
+    font-size: 30px; /* Tamanho do ícone */
+    color: #000000; /* Cor do ícone */
+    cursor: pointer; /* Altera o cursor ao passar por cima */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    z-index: 1600;
+}
+
+.close-btn:hover {
+    color: #ccc; /* Cor do ícone ao passar o mouse */
 }
 
 .nav-menu {
@@ -276,7 +295,7 @@ footer {
     bottom: 0;
     right: 0;
     width: 100%;
-    max-width: 300px;
+    max-width: 400px;
     height: 100vh; /* Altura desejada */
     background-color: #ff1ba8;
     box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
@@ -289,16 +308,17 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin: 40px 0;
+    margin: 30px 0;
+    padding: 15px;
 }
 
 .checkout-content h3, p {
  font-size: 24px;
- color: rgb(236, 238, 238);
+ color: azure;
  margin-bottom: 10px;
 }
 
-.checkout-content .btn-finalizar {
+.checkout-content #btn-finalizar {
     width: 250px;
     height: auto;
     font-size: 24px;
@@ -307,10 +327,68 @@ footer {
     background-color: azure;
     border: 2px solid black;
     cursor: pointer;
+    background-color: azure;
 }
 
 .checkout-bar.active {
     display: block;
+}
+
+#checkout-list {
+    list-style-type: none; 
+    padding: 0; 
+}
+
+#checkout-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cecece59;
+}
+
+#checkout-list li img {
+    width: 60px; 
+    height: auto;
+    margin-right: 10px;
+}
+
+#checkout-list li .info {
+    flex: 1;
+}
+
+#checkout-list li h4 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+}
+
+#checkout-list li p {
+    margin: 5px 0;
+    font-size: 18px;
+}
+
+#checkout-list li .price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff1ba7;
+}
+
+#checkout-list li .remove-btn {
+    background-color: azure;
+    color: #ff1ba7;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#checkout-list li .remove-btn:hover {
+    background-color: #ff0080;
 }
 
 /*RESPONSIVIDADE TABLET*/

@@ -8,8 +8,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const itemCountDisplay = document.querySelector('.item-count');
     const btnFinalizar = document.getElementById('btn-finalizar');
     const allSection = document.getElementById('all'); // Elemento onde os produtos são renderizados
+    const closeBtn = document.querySelector('.close-btn'); // Ícone de fechar
 
-    let itemCount = 0; 
+    let itemCount = 0;
+    const produtos = [
+        {
+            imagem: "assets/calcaum.png",
+            alt: "Grunge Glossy Jeans",
+            nome: "Calça Jeans Grunge",
+            tamanhos: ["PP", "P", "M", "G", "GG"],
+            preco: "R$ 220,00",
+            quantidade: 0,
+            tamanhoSelecionado: ''
+        },
+        {
+            imagem: "assets/calcadois.png",
+            alt: "Boyfriend Glossy Jeans",
+            nome: "Calça Jeans Boyfriend",
+            tamanhos: ["PP", "P", "M", "G", "GG"],
+            preco: "R$ 220,00",
+            quantidade: 0,
+            tamanhoSelecionado: ''
+        },
+        {
+            imagem: "assets/calcatres.png",
+            alt: "Star Glossy Jeans",
+            nome: "Calça Glossy Star",
+            tamanhos: ["PP", "P", "M", "G", "GG"],
+            preco: "R$ 220,00",
+            quantidade: 0,
+            tamanhoSelecionado: ''
+        }
+    ];
 
     // Toggle do menu móvel
     menuToggle.addEventListener('click', () => {
@@ -23,63 +53,90 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCheckoutList();
     });
 
+    // Evento de clique no ícone de fechar
+    closeBtn.addEventListener('click', () => {
+        checkoutBar.classList.remove('active');
+        // Limpar a lista de produtos no checkout ao fechar
+        clearCheckoutList();
+    });
+
     // Função para atualizar o número de itens no resumo da compra
     function updateCheckoutItemCount() {
         itemCountCheckout.textContent = itemCount;
         itemCountDisplay.textContent = itemCount;
     }
 
+    // Função para limpar a lista de produtos no resumo da compra
+    function clearCheckoutList() {
+        checkoutList.innerHTML = '';
+        itemCount = 0;
+        updateCheckoutItemCount();
+    }
+
     // Função para adicionar produto ao carrinho
     function addToCart(produto) {
         console.log(`Produto ${produto.nome} adicionado ao carrinho!`);
         itemCount++;
-    
+
         // Atualiza o contador de itens no carrinho
         updateCheckoutItemCount();
         console.log(`Quantidade atual no carrinho: ${itemCount}`);
 
-        alert(`Produto ${produto.nome} adicionado ao carrinho com sucesso!`)
+        alert(`Produto ${produto.nome} adicionado ao carrinho com sucesso!`);
     }
+
+    // Função para remover produto do carrinho
+    function removeProduct(index) {
+        const produto = produtos[index];
+        if (produto.quantidade > 0) {
+            console.log(`Removendo produto ${produto.nome} do carrinho.`);
+            produto.quantidade--;
+
+            // Atualiza o contador de itens no carrinho
+            itemCount--;
+
+            // Atualiza a lista de checkout para refletir a remoção do produto
+            updateCheckoutList();
+
+            // Atualiza o contador de itens no resumo da compra
+            updateCheckoutItemCount();
+
+            console.log(`Quantidade atual no carrinho: ${itemCount}`);
+        }
+    }
+
     // Função para atualizar a lista de produtos no resumo da compra
     function updateCheckoutList() {
         checkoutList.innerHTML = ''; // Limpa a lista atual
 
         // Cria novos itens na lista baseados nos produtos no carrinho
-        for (let produto of produtos) {
+        for (let i = 0; i < produtos.length; i++) {
+            const produto = produtos[i];
             if (produto.quantidade > 0) {
                 const item = document.createElement('li');
-                item.textContent = `${produto.nome} x ${produto.quantidade}`;
+                item.classList.add('produto-resumo');
+                item.innerHTML = `
+                    <img src="${produto.imagem}" alt="${produto.alt}">
+                    <div class="info">
+                        <h4>${produto.nome}</h4>
+                        <p>Quantidade: ${produto.quantidade}</p>
+                        <p>Tamanho: ${produto.tamanhoSelecionado}</p>
+                        <p>Preço: ${produto.preco}</p>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="remove-btn">Remover</button>
+                    </div>
+                `;
                 checkoutList.appendChild(item);
+
+                // Adiciona evento de clique para o botão de remover
+                const removeButton = item.querySelector('.remove-btn');
+                removeButton.addEventListener('click', () => {
+                    removeProduct(i); // Remove o produto da posição i
+                });
             }
         }
     }
-
-    const produtos = [
-        {
-            imagem: "assets/calcaum.png",
-            alt: "Grunge Glossy Jeans",
-            nome: "Calça Jeans Grunge",
-            tamanhos: ["PP", "P", "M", "G", "GG"],
-            preco: "R$ 220,00",
-            quantidade: 0
-        },
-        {
-            imagem: "assets/calcadois.png",
-            alt: "Boyfriend Glossy Jeans",
-            nome: "Calça Jeans Boyfriend",
-            tamanhos: ["PP", "P", "M", "G", "GG"],
-            preco: "R$ 220,00",
-            quantidade: 0
-        },
-        {
-            imagem: "assets/calcatres.png",
-            alt: "Star Glossy Jeans",
-            nome: "Calça Glossy Star",
-            tamanhos: ["PP", "P", "M", "G", "GG"],
-            preco: "R$ 220,00",
-            quantidade: 0
-        }
-    ];
 
     // Função para criar o HTML de cada produto
     function criarProduto(produto) {
@@ -102,10 +159,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (tamanhoSelecionado) {
                 // Atualiza a quantidade do produto no objeto
                 produto.quantidade++;
+                produto.tamanhoSelecionado = tamanhoSelecionado.textContent;
+
                 // Adiciona ao carrinho
                 addToCart(produto);
                 // Limpa a seleção de tamanho
                 tamanhoSelecionado.classList.remove('tamanho-selecionado');
+
+                // Atualiza a lista de produtos no resumo da compra imediatamente após adicionar
+                updateCheckoutList();
             } else {
                 alert('Por favor, selecione um tamanho antes de adicionar ao carrinho.');
             }
@@ -136,15 +198,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Evento de clique no botão Finalizar
     btnFinalizar.addEventListener('click', () => {
-        finalizarCompra();
+        if (itemCount > 0) {
+            finalizarCompra();
+        } else {
+            alert('Adicione produtos ao carrinho antes de finalizar a compra.');
+        }
     });
 
     // Função para finalizar a compra
     function finalizarCompra() {
         alert('Compra finalizada!');
+        
+        // Resetar a quantidade de itens e atualizar os contadores
         itemCount = 0;
         updateCheckoutItemCount();
-        updateCheckoutList();
+
+        // Limpar a lista de produtos no checkout
+        clearCheckoutList();
+
+        // Esconder a barra de checkout
         checkoutBar.classList.remove('active');
     }
 
