@@ -61,14 +61,17 @@ nav {
 }
 
 .carrinho {
+    position: relative;
+    margin-left: auto;
+    margin-top: 20px;
     position: fixed;
     top: 20px;
-    right: 30px;
+    right: 40px;
     z-index: 1500;
 }
 
 .carrinho img {
-    width: 40px;
+    width: 60px;
     height: auto;
     cursor: pointer;
 }
@@ -246,7 +249,7 @@ footer {
     overflow: hidden;
 }
 
-#banner-video, #banner-videocelu {
+#banner-video, #banner-videotablet, #banner-videocelu {
     position: absolute;
     top: 0;
     left: 0;
@@ -264,22 +267,46 @@ footer {
     display: none;
 }
 
+#banner-videotablet {
+    display: none;
+}
+
 .checkout-bar {
     position: fixed;
     bottom: 0;
     right: 0;
-    width: 300px;
-    height: 100%;
-    background-color: #ff1ba892;
+    width: 100%;
+    max-width: 300px;
+    height: 100vh; /* Altura desejada */
+    background-color: #ff1ba8;
     box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
     padding: 10px 20px;
     display: none; /* Inicia oculto */
+    border: 3px solid azure;
 }
 
 .checkout-content {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    margin: 40px 0;
+}
+
+.checkout-content h3, p {
+ font-size: 24px;
+ color: rgb(236, 238, 238);
+ margin-bottom: 10px;
+}
+
+.checkout-content .btn-finalizar {
+    width: 250px;
+    height: auto;
+    font-size: 24px;
+    font-family: "Dosis", sans-serif;
+    border-radius: 25px;
+    background-color: azure;
+    border: 2px solid black;
+    cursor: pointer;
 }
 
 .checkout-bar.active {
@@ -380,8 +407,9 @@ footer {
 }
 
 .checkout-bar {
-    width: 100%; /* Em telas menores, ocupar toda a largura */
-    left: 0;
+    width: 400px; 
+    right: 0;
+    border: 1px solid azure;
 }
 
     .logo {
@@ -416,8 +444,12 @@ footer {
         display: none;
     }
     
-    #banner-videocelu {
+    #banner-videotablet {
         display: block;
+    }
+
+    #banner-videocelu {
+        display: none;
     }
 
     .fixed-menu {
@@ -437,9 +469,9 @@ footer {
             transform: translateY(0);
         }
     }
-
+}
     /*RESPONSIVIDADE CELU*/
-@media (max-width: 375px) {
+@media (max-width: 600px) {
 
     header {
       flex-direction: column;
@@ -491,8 +523,8 @@ footer {
         position: fixed;
         top: 40px;
         left: 40px;
-        width: 30px;
-        height: 20px;
+        width: 20px;
+        height: 15px;
         flex-direction: column;
         align-items: center;
         justify-content: center;
@@ -500,8 +532,8 @@ footer {
     }
 
     .menu-toggle .bar {
-        width: 50px;
-        height: 5px;
+        width: 20px;
+        height: 3px;
         background-color: #ff1ba7;
         margin: 4px 0;
     }
@@ -568,6 +600,10 @@ footer {
         display: none;
     }
     
+    #banner-videotablet {
+        display: none;
+    }
+
     #banner-videocelu {
         display: block;
     }
@@ -590,4 +626,4 @@ footer {
         }
     }
   }
-}
+
