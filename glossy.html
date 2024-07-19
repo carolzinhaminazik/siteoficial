@@ -15,6 +15,7 @@
 
     <title>Glossy dotcom.</title>
     <link rel="stylesheet" href="style.css">
+ 
 </head>
 
 <body>
@@ -59,7 +60,7 @@
         <div class="checkout-bar">
             <div class="close-btn">&times;</div> <!-- Ícone de fechar -->
             <div class="checkout-content">
-                <h3>Resumo:</h3>
+                <h3>Resumo</h3>
             
                 <p>Total de itens: <span id="item-count-checkout">0</span></p>
 
@@ -71,6 +72,35 @@
             </div>
         </div>
     </main>
+
+    <!-- Modal de Login -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Faça login para concluir</h4>
+                <span class="close" id="close-modal">&times;</span>
+            </div>
+            <form id="login-form">
+                <label for="email">E-mail:</label>
+                <input type="email" class
+            = "email" id="email" required>
+                <label for="password">Senha:</label>
+                <input type="password" id="password" required>
+                <button type="submit" class="btn-concluir">CONCLUIR</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Tamanho -->
+<div id="size-selection-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>Selecione um Tamanho</h4>
+            <span class="close" id="close-size-modal">&times;</span>
+        </div>
+        <p>Por favor, selecione um tamanho antes de adicionar o produto ao carrinho.</p>
+    </div>
+</div>
 
     <footer>
         <p>&copy; 2024 Glossy dotcom. Todos os direitos reservados.</p>

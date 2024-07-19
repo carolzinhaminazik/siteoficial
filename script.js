@@ -7,8 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkoutList = document.getElementById('checkout-list');
     const itemCountDisplay = document.querySelector('.item-count');
     const btnFinalizar = document.getElementById('btn-finalizar');
-    const allSection = document.getElementById('all'); // Elemento onde os produtos são renderizados
-    const closeBtn = document.querySelector('.close-btn'); // Ícone de fechar
+    const allSection = document.getElementById('all');
+    const closeBtn = document.querySelector('.close-btn');
+    const loginModal = document.getElementById('login-modal');
+    const closeModal = document.getElementById('close-modal');
+    const loginForm = document.getElementById('login-form');
 
     let itemCount = 0;
     const produtos = [
@@ -49,14 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mostrar/ocultar barra de finalização ao clicar no ícone de carrinho
     carrinhoIcon.addEventListener('click', () => {
         checkoutBar.classList.toggle('active');
-        updateCheckoutItemCount();
         updateCheckoutList();
+        updateCheckoutItemCount();
     });
 
     // Evento de clique no ícone de fechar
     closeBtn.addEventListener('click', () => {
-        checkoutBar.classList.remove('active');
-        // Limpar a lista de produtos no checkout ao fechar
+        checkoutBar.classList.remove('active'); 
         clearCheckoutList();
     });
 
@@ -70,48 +72,33 @@ document.addEventListener('DOMContentLoaded', () => {
     function clearCheckoutList() {
         checkoutList.innerHTML = '';
         itemCount = 0;
+        produtos.forEach(produto => produto.quantidade = 0);
         updateCheckoutItemCount();
     }
 
     // Função para adicionar produto ao carrinho
     function addToCart(produto) {
-        console.log(`Produto ${produto.nome} adicionado ao carrinho!`);
+        produto.quantidade++;
         itemCount++;
-
-        // Atualiza o contador de itens no carrinho
+        updateCheckoutList();
         updateCheckoutItemCount();
-        console.log(`Quantidade atual no carrinho: ${itemCount}`);
-
-        alert(`Produto ${produto.nome} adicionado ao carrinho com sucesso!`);
     }
 
     // Função para remover produto do carrinho
     function removeProduct(index) {
         const produto = produtos[index];
         if (produto.quantidade > 0) {
-            console.log(`Removendo produto ${produto.nome} do carrinho.`);
             produto.quantidade--;
-
-            // Atualiza o contador de itens no carrinho
             itemCount--;
-
-            // Atualiza a lista de checkout para refletir a remoção do produto
             updateCheckoutList();
-
-            // Atualiza o contador de itens no resumo da compra
             updateCheckoutItemCount();
-
-            console.log(`Quantidade atual no carrinho: ${itemCount}`);
         }
     }
 
     // Função para atualizar a lista de produtos no resumo da compra
     function updateCheckoutList() {
-        checkoutList.innerHTML = ''; // Limpa a lista atual
-
-        // Cria novos itens na lista baseados nos produtos no carrinho
-        for (let i = 0; i < produtos.length; i++) {
-            const produto = produtos[i];
+        checkoutList.innerHTML = '';
+        produtos.forEach((produto, index) => {
             if (produto.quantidade > 0) {
                 const item = document.createElement('li');
                 item.classList.add('produto-resumo');
@@ -132,11 +119,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Adiciona evento de clique para o botão de remover
                 const removeButton = item.querySelector('.remove-btn');
                 removeButton.addEventListener('click', () => {
-                    removeProduct(i); // Remove o produto da posição i
+                    removeProduct(index);
                 });
             }
-        }
+        });
     }
+
+    // Exibir o modal ao clicar no botão de finalizar
+    btnFinalizar.addEventListener('click', () => {
+        if (itemCount > 0) {
+            loginModal.style.display = 'flex';
+        } else {
+            alert('Adicione produtos ao carrinho antes de finalizar a compra');
+        }
+    });
+
+    // Fechar o modal ao clicar no botão de fechar
+    closeModal.addEventListener('click', () => {
+        loginModal.style.display = 'none';
+    });
+
+    // Processar o formulário de login
+    loginForm.addEventListener('submit', (event) => {
+        event.preventDefault(); 
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        if (email && password) {
+            alert('Compra concluída com sucesso!');
+        
+        clearCheckoutList();
+
+            loginModal.style.display = 'none';
+        } else {
+            alert('Por favor, preencha todos os campos.');
+        }
+    });
 
     // Função para criar o HTML de cada produto
     function criarProduto(produto) {
@@ -153,21 +171,13 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
 
         // Adiciona evento de clique para adicionar ao carrinho
-        divProduto.querySelector('.btn-comprar').addEventListener('click', () => {
+    divProduto.querySelector('.btn-comprar').addEventListener('click', () => {
             const tamanhoSelecionado = divProduto.querySelector('.tamanhos li.tamanho-selecionado');
 
             if (tamanhoSelecionado) {
-                // Atualiza a quantidade do produto no objeto
-                produto.quantidade++;
                 produto.tamanhoSelecionado = tamanhoSelecionado.textContent;
-
-                // Adiciona ao carrinho
                 addToCart(produto);
-                // Limpa a seleção de tamanho
                 tamanhoSelecionado.classList.remove('tamanho-selecionado');
-
-                // Atualiza a lista de produtos no resumo da compra imediatamente após adicionar
-                updateCheckoutList();
             } else {
                 alert('Por favor, selecione um tamanho antes de adicionar ao carrinho.');
             }
@@ -179,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Adiciona cada produto à seção de produtos
     produtos.forEach(produto => {
         const produtoElement = criarProduto(produto);
-        allSection.appendChild(produtoElement); // Aqui adicionamos ao 'allSection'
+        allSection.appendChild(produtoElement);
     });
 
     // Evento de clique nos tamanhos
@@ -194,31 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Adiciona a classe ao tamanho selecionado
             selectedSize.classList.add('tamanho-selecionado');
         }
-    });
-
-    // Evento de clique no botão Finalizar
-    btnFinalizar.addEventListener('click', () => {
-        if (itemCount > 0) {
-            finalizarCompra();
-        } else {
-            alert('Adicione produtos ao carrinho antes de finalizar a compra.');
-        }
-    });
-
-    // Função para finalizar a compra
-    function finalizarCompra() {
-        alert('Compra finalizada!');
-        
-        // Resetar a quantidade de itens e atualizar os contadores
-        itemCount = 0;
-        updateCheckoutItemCount();
-
-        // Limpar a lista de produtos no checkout
-        clearCheckoutList();
-
-        // Esconder a barra de checkout
-        checkoutBar.classList.remove('active');
-    }
+});
 
     // Detecta a rolagem da tela
     window.addEventListener('scroll', () => {
