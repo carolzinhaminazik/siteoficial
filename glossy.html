@@ -38,6 +38,7 @@
             <ul>
                 <li><a href="produtos.html">Produtos</a></li>
                 <li><a href="contato.html">Contato</a></li>
+                <div class="btn-close-dois">&times;</div> 
             </ul>
         </nav>
     </header>
@@ -58,15 +59,13 @@
         <section id="all" class="produtos"></section>
 
         <div class="checkout-bar">
-            <div class="close-btn">&times;</div> <!-- Ícone de fechar -->
+            <div class="close-btn">&times;</div> 
             <div class="checkout-content">
                 <h3>Resumo</h3>
             
                 <p>Total de itens: <span id="item-count-checkout">0</span></p>
 
-                <ul id="checkout-list">
-                    <!-- Itens do carrinho são adicionados dinamicamente aqui -->
-                </ul>
+                <ul id="checkout-list"></ul>
             
                 <button id="btn-finalizar">Finalizar Compra</button>
             </div>

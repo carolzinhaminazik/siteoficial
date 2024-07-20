@@ -9,9 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnFinalizar = document.getElementById('btn-finalizar');
     const allSection = document.getElementById('all');
     const closeBtn = document.querySelector('.close-btn');
+    const closeBtnDois = document.querySelector('.btn-close-dois');
     const loginModal = document.getElementById('login-modal');
     const closeModal = document.getElementById('close-modal');
     const loginForm = document.getElementById('login-form');
+    const sizeSelectionModal = document.getElementById('size-selection-modal');
+    const closeSizeModal = document.getElementById('close-size-modal');
+
 
     let itemCount = 0;
     const produtos = [
@@ -43,35 +47,76 @@ document.addEventListener('DOMContentLoaded', () => {
             tamanhoSelecionado: ''
         }
     ];
+      // Função para salvar o estado do carrinho no localStorage
+      function saveCartState() {
+        const cartState = produtos.map(produto => ({
+            nome: produto.nome,
+            quantidade: produto.quantidade,
+            tamanhoSelecionado: produto.tamanhoSelecionado
+        }));
+        localStorage.setItem('cartState', JSON.stringify(cartState));
+    }
 
-    // Toggle do menu móvel
-    menuToggle.addEventListener('click', () => {
+    // Função para carregar o estado do carrinho do localStorage
+    function loadCartState() {
+        const cartState = localStorage.getItem('cartState');
+        if (cartState) {
+            const savedCart = JSON.parse(cartState);
+            savedCart.forEach(savedItem  => {
+                const produto = produtos.find(p => p.nome === savedItem.nome);
+                if (produto) {
+                    produto.quantidade = savedItem.quantidade;
+                    produto.tamanhoSelecionado = savedItem.tamanhoSelecionado;
+                }
+            });
+            updateCheckoutList();
+            updateCheckoutItemCount();
+        }
+    }
+
+    loadCartState();
+
+    // Toggle do celu
+    menuToggle.addEventListener('click', () => { 
+        if (checkoutBar.classList.contains('active')){
+        checkoutBar.classList.remove('active');
+    }
         navMenu.classList.toggle('active');
     });
 
     // Mostrar/ocultar barra de finalização ao clicar no ícone de carrinho
-    carrinhoIcon.addEventListener('click', () => {
+    carrinhoIcon.addEventListener('click', () => { 
+        if (navMenu.classList.contains('active')) {
+        navMenu.classList.remove('active');
+    }
         checkoutBar.classList.toggle('active');
         updateCheckoutList();
         updateCheckoutItemCount();
     });
 
-    // Evento de clique no ícone de fechar
+
+    // Evento de clique no ícone de fechar checkout
     closeBtn.addEventListener('click', () => {
         checkoutBar.classList.remove('active'); 
-        clearCheckoutList();
     });
+
+     // Evento de clique no ícone de fechar menu
+     closeBtnDois.addEventListener('click', () => { navMenu.classList.remove('active'); 
+    });
+
 
     // Função para atualizar o número de itens no resumo da compra
     function updateCheckoutItemCount() {
+        itemCount = produtos.reduce((total, produto) => total + produto.quantidade, 0);
         itemCountCheckout.textContent = itemCount;
         itemCountDisplay.textContent = itemCount;
+        saveCartState();
     }
 
     // Função para limpar a lista de produtos no resumo da compra
     function clearCheckoutList() {
         checkoutList.innerHTML = '';
-        itemCount = 0;
+      
         produtos.forEach(produto => produto.quantidade = 0);
         updateCheckoutItemCount();
     }
@@ -82,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         itemCount++;
         updateCheckoutList();
         updateCheckoutItemCount();
+        checkoutBar.classList.add('active');
     }
 
     // Função para remover produto do carrinho
@@ -116,23 +162,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
                 checkoutList.appendChild(item);
 
-                // Adiciona evento de clique para o botão de remover
+                
                 const removeButton = item.querySelector('.remove-btn');
                 removeButton.addEventListener('click', () => {
                     removeProduct(index);
                 });
             }
         });
+        saveCartState();
     }
 
-    // Exibir o modal ao clicar no botão de finalizar
-    btnFinalizar.addEventListener('click', () => {
-        if (itemCount > 0) {
-            loginModal.style.display = 'flex';
-        } else {
-            alert('Adicione produtos ao carrinho antes de finalizar a compra');
-        }
+      // Mostrar o modal de seleção de tamanho
+      function showSizeSelectionModal() {
+        sizeSelectionModal.style.display = 'flex';
+    }
+
+    // Fechar o modal de seleção de tamanho
+    closeSizeModal.addEventListener('click', () => {
+        sizeSelectionModal.style.display = 'none';
     });
+
+      // Exibir o modal ao clicar no botão de finalizar
+    btnFinalizar.addEventListener('click', () => {
+        if (itemCount > 0) { loginModal.style.display = 'flex';
+         } else { alert('Adicione produtos ao carrinho antes de finalizar a compra');
+            }
+        });
 
     // Fechar o modal ao clicar no botão de fechar
     closeModal.addEventListener('click', () => {
@@ -156,8 +211,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Função para criar o HTML de cada produto
-    function criarProduto(produto) {
+      // Função para criar o HTML de cada produto
+      function criarProduto(produto) {
         const divProduto = document.createElement('div');
         divProduto.classList.add('produto');
         divProduto.innerHTML = `
@@ -179,31 +234,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 addToCart(produto);
                 tamanhoSelecionado.classList.remove('tamanho-selecionado');
             } else {
-                alert('Por favor, selecione um tamanho antes de adicionar ao carrinho.');
+                showSizeSelectionModal();
             }
         });
 
         return divProduto;
     }
-
     // Adiciona cada produto à seção de produtos
     produtos.forEach(produto => {
-        const produtoElement = criarProduto(produto);
-        allSection.appendChild(produtoElement);
+    const produtoElement = criarProduto(produto);
+    allSection.appendChild(produtoElement);
     });
 
     // Evento de clique nos tamanhos
     allSection.addEventListener('click', event => {
-        if (event.target.tagName === 'LI' && event.target.parentElement.classList.contains('tamanhos')) {
-            const selectedSize = event.target;
-            const allSizes = selectedSize.parentElement.querySelectorAll('li');
+    if (event.target.tagName === 'LI' && event.target.parentElement.classList.contains('tamanhos')) {
+        const selectedSize = event.target;
+        const allSizes = selectedSize.parentElement.querySelectorAll('li');
 
-            // Remove a classe 'tamanho-selecionado' de todos os tamanhos
-            allSizes.forEach(li => li.classList.remove('tamanho-selecionado'));
+        // Remove a classe 'tamanho-selecionado' de todos os tamanhos
+        allSizes.forEach(li => li.classList.remove('tamanho-selecionado'));
 
-            // Adiciona a classe ao tamanho selecionado
-            selectedSize.classList.add('tamanho-selecionado');
-        }
+        // Adiciona a classe ao tamanho selecionado
+        selectedSize.classList.add('tamanho-selecionado');
+    }
 });
 
     // Detecta a rolagem da tela

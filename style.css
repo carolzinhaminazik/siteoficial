@@ -57,7 +57,7 @@ nav {
     display: none;
     cursor: pointer;
     flex-direction: column;
-    z-index: 1500;
+    z-index: 1000;
 }
 
 .carrinho {
@@ -104,6 +104,22 @@ nav {
     top: 10px;
     right: 10px;
     z-index: 1600;
+}
+
+.btn-close-dois {
+    width: 30px; 
+    height: 10px;
+    font-size: 40px; 
+    color: #ffffff; 
+    cursor: pointer; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1600;
+    display: none;
 }
 
 .close-btn:hover {
@@ -300,11 +316,11 @@ footer {
     right: 0;
     width: 100%;
     max-width: 400px;
-    height: 100vh; /* Altura desejada */
+    height: 100vh;
     background-color: #ff1ba8;
     box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
     padding: 10px 20px;
-    display: none; /* Inicia oculto */
+    display: none; 
     border: 3px solid azure;
 }
 
@@ -333,10 +349,12 @@ footer {
     border: 2px solid #ff0080;
     box-shadow:rgb(255, 255, 249);
     cursor: pointer;
+    margin: 50px 0px;
 }
 
 .checkout-bar.active {
     display: block;
+    z-index: 2;
 }
 
 #checkout-list {
@@ -408,6 +426,26 @@ footer {
     align-items: center;
     z-index: 1000;
 }
+
+/* Estilos para o modal de seleção de tamanho */
+#size-selection-modal {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    font-size: 20px;
+}
+
+#size-selection-modal h4 {
+    font-size: 24px;
+}
+
 .modal-content {
     background: #ff0080d7;
     padding: 20px;
@@ -490,16 +528,32 @@ footer {
 
     .nav-menu.active {
         display: flex;
-        background-color: #ff1ba88f;
+        max-width: 250px;
+        background-color: #ff1ba8f7;
         transform: translateY(0);
         height: 100%;
+        border: 2px solid azure;
+    }
+
+    .btn-close-dois {
+        width: 30px; 
+        height: 10px; 
+        font-size: 40px;
+        color: #ffffff;
+        cursor: pointer; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 1600;
     }
 
     .nav-menu ul {
         flex-direction: column;
         gap: 10px;
-        padding: 0;
-        margin: 20px;
+        padding: 25px;
     }
 
     .menu-actions {
@@ -523,7 +577,7 @@ footer {
     .menu-toggle .bar {
         width: 50px;
         height: 5px;
-        background-color: #ff1ba7;
+        background-color: #ff1ba8f3;
         margin: 4px 0;
     }
 
@@ -557,7 +611,7 @@ footer {
 }
 
 .checkout-bar {
-    width: 400px; 
+    max-width: 300px;
     right: 0;
     border: 1px solid azure;
 }
@@ -638,7 +692,6 @@ footer {
 
 .valor-produto {
     z-index: 1;
-    display: none;
 }
 
     .nav-menu {
@@ -656,7 +709,7 @@ footer {
 
     .nav-menu.active {
         display: flex;
-        background-color: #ff1ba88f;
+        background-color: #ff1ba8f1;
         transform: translateY(0);
         height: 100%;
     }
@@ -683,14 +736,14 @@ footer {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        display: none;
+        z-index: 1;
     }
 
     .menu-toggle .bar {
         width: 20px;
         height: 3px;
         background-color: #ff1ba7;
-        margin: 4px 0;
+        margin: 2px 0;
     }
 
 .carrinho {
@@ -704,7 +757,6 @@ footer {
 .carrinho img {
     width: 40px;
     height: auto;
-    display: none;  
     cursor: pointer;
 }
 
@@ -717,13 +769,16 @@ footer {
     border-radius: 50%;
     padding: 2px 6px;
     font-size: 12px;
-    display: none;
 }
 
 .checkout-bar {
     width: 100%; 
-    left: 0;
+    right: 0;
+    z-index: 2;
 }
+ .remove-btn {
+ margin-top: 250px;
+ }
 
     .logo {
       margin-top: 10px;
@@ -783,4 +838,17 @@ footer {
         }
     }
   }
+
+@media (max-width: 500px) {
+    .nav-menu.active ~ .checkout-bar,
+    .checkout-bar.active ~ .nav-menu {
+        display: none;
+    }
+
+    .nav-menu.active,
+    .checkout-bar.active {
+        display: block;
+    }
+}
+
 ;
