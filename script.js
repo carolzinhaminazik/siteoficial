@@ -10,11 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const allSection = document.getElementById('all');
     const closeBtn = document.querySelector('.close-btn');
     const closeBtnDois = document.querySelector('.btn-close-dois');
+    
     const loginModal = document.getElementById('login-modal');
     const closeModal = document.getElementById('close-modal');
     const loginForm = document.getElementById('login-form');
     const sizeSelectionModal = document.getElementById('size-selection-modal');
     const closeSizeModal = document.getElementById('close-size-modal');
+    
 
 
     let itemCount = 0;
@@ -172,6 +174,21 @@ document.addEventListener('DOMContentLoaded', () => {
         saveCartState();
     }
 
+    // Exibir o modal de sucesso
+function showPurchaseSuccessModal() {
+    document.getElementById('compra-success-modal').style.display = 'flex';
+}
+
+// Ocultar o modal de sucesso
+function closePurchaseSuccessModal() {
+    document.getElementById('compra-success-modal').style.display = 'none';
+}
+
+// Adicionar evento ao botão de fechar
+document.getElementById('btn-concluir-modal').addEventListener('click', closePurchaseSuccessModal);
+document.getElementById('close-concluir').addEventListener('click', closePurchaseSuccessModal);
+
+
       // Mostrar o modal de seleção de tamanho
       function showSizeSelectionModal() {
         sizeSelectionModal.style.display = 'flex';
@@ -194,18 +211,16 @@ document.addEventListener('DOMContentLoaded', () => {
         loginModal.style.display = 'none';
     });
 
-    // Processar o formulário de login
+    //  formulário de login
     loginForm.addEventListener('submit', (event) => {
         event.preventDefault(); 
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
         if (email && password) {
-            alert('Compra concluída com sucesso!');
-        
-        clearCheckoutList();
-
             loginModal.style.display = 'none';
+            showPurchaseSuccessModal();
+            clearCheckoutList();
         } else {
             alert('Por favor, preencha todos os campos.');
         }
@@ -246,16 +261,14 @@ document.addEventListener('DOMContentLoaded', () => {
     allSection.appendChild(produtoElement);
     });
 
-    // Evento de clique nos tamanhos
+    // Evento de clique tamanho
     allSection.addEventListener('click', event => {
     if (event.target.tagName === 'LI' && event.target.parentElement.classList.contains('tamanhos')) {
         const selectedSize = event.target;
         const allSizes = selectedSize.parentElement.querySelectorAll('li');
 
-        // Remove a classe 'tamanho-selecionado' de todos os tamanhos
         allSizes.forEach(li => li.classList.remove('tamanho-selecionado'));
 
-        // Adiciona a classe ao tamanho selecionado
         selectedSize.classList.add('tamanho-selecionado');
     }
 });

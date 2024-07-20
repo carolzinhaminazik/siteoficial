@@ -439,11 +439,45 @@ footer {
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    font-size: 20px;
 }
 
 #size-selection-modal h4 {
     font-size: 24px;
+}
+
+
+#compra-success-modal {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    font-size: 20px;
+}
+
+#compra-success-modal h4 {
+font-size: 24px;
+}
+
+#btn-concluir-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 40px;
+    margin-top: 25px;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: "Dosis", sans-serif;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 25px;
+    background-color: azure;
+    color: #ff0080;
 }
 
 .modal-content {
@@ -452,11 +486,11 @@ footer {
     border-radius: 5px;
     width: 90%;
     max-width: 500px;
-    height: 300px;
-    font-size: 20px;
+    height: auto;
     border: 3px solid azure;
     color: azure;
     font-weight: 500;
+    text-align: center;
 }
 
 .modal-content #login-form {
@@ -495,6 +529,11 @@ footer {
 }
 .close {
     cursor: pointer;
+}
+
+#close-size-modal {
+    font-size: 24px;
+    margin: 0;
 }
 
 /*RESPONSIVIDADE TABLET*/
@@ -752,7 +791,7 @@ footer {
     position: fixed;
     top: 20px;
     right: 20px;
-    z-index: 1500;
+    z-index: 1000;
 }
 .carrinho img {
     width: 40px;
