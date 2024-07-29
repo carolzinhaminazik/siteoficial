@@ -38,7 +38,6 @@
             <ul>
                 <li><a href="produtos.html">Produtos</a></li>
                 <li><a href="contato.html">Contato</a></li>
-                <div class="btn-close-dois">&times;</div> 
             </ul>
         </nav>
     </header>
@@ -85,7 +84,7 @@
             = "email" id="email" required>
                 <label for="password">Senha:</label>
                 <input type="password" id="password" required>
-                <button type="submit" class="btn-concluir">CONCLUIR</button>
+                <button type="submit" class="btn-concluir-modal">CONCLUIR</button>
             </form>
         </div>
     </div>
@@ -109,16 +108,16 @@
             <span class="close" id="close-concluir">&times;</span>
         </div>
         <p>Obrigado pela sua compra! Seu pedido foi realizado com sucesso.</p>
-        <button id="btn-concluir-modal" class="btn-concluir-compra">Fechar</button>
     </div>
 </div>
 
 <!-- Modal de aviso para finalizar compra sem produtos -->
 <div id="empty-cart-modal" class="modal">
     <div class="modal-content">
-        <span id="close-empty-cart-modal" class="close">&times;</span>
+        <div class="modal-header">
+        <span id="close-empty-cart-modal" class="close-btn">&times;</span>
         <p>Adicione produtos ao carrinho antes de finalizar a compra.</p>
-        <button id="btn-fechar-empty-cart-modal">Fechar</button>
+        </div>
     </div>
 </div>
 

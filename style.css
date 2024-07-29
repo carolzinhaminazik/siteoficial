@@ -92,23 +92,8 @@ nav {
 }
 
 .close-btn {
-    width: 30px; /* Largura da área do botão */
-    height: 10px; /* Altura da área do botão */
-    font-size: 40px; /* Tamanho do ícone */
-    color: #ffffff; /* Cor do ícone */
-    cursor: pointer; /* Altera o cursor ao passar por cima */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 1600;
-}
-
-.btn-close-dois {
     width: 30px; 
-    height: 10px;
+    height: 10px; 
     font-size: 40px; 
     color: #ffffff; 
     cursor: pointer; 
@@ -119,11 +104,10 @@ nav {
     top: 10px;
     right: 10px;
     z-index: 1600;
-    display: none;
 }
 
 .close-btn:hover {
-    color: #ccc; /* Cor do ícone ao passar o mouse */
+    color: #ccc; 
 }
 
 .nav-menu {
@@ -330,6 +314,7 @@ footer {
     gap: 10px;
     margin: 30px 0;
     padding: 15px;
+    z-index: 1000;
 }
 
 .checkout-content h3, p {
@@ -354,7 +339,7 @@ footer {
 
 .checkout-bar.active {
     display: block;
-    z-index: 2;
+    z-index: 1000;
 }
 
 #checkout-list {
@@ -464,7 +449,21 @@ footer {
 font-size: 24px;
 }
 
-#btn-concluir-modal {
+#empty-cart-modal {
+    display: flex; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    font-size: 20px;
+}
+
+.btn-concluir-modal {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -478,6 +477,7 @@ font-size: 24px;
     border-radius: 25px;
     background-color: azure;
     color: #ff0080;
+    cursor: pointer;
 }
 
 .modal-content {
@@ -491,6 +491,9 @@ font-size: 24px;
     color: azure;
     font-weight: 500;
     text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .modal-content #login-form {
@@ -504,22 +507,6 @@ font-size: 24px;
     padding: 10px;
 }
 
-.btn-concluir {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    height: 40px;
-    margin-top: 25px;
-    font-size: 20px;
-    font-weight: 600;
-    font-family: "Dosis", sans-serif;
-    border: 1px solid rgb(255, 255, 255);
-    border-radius: 25px;
-    background-color: azure;
-    color: #ff0080;
-}
-
 .modal-header {
     display: flex;
     justify-content: space-between;
@@ -527,7 +514,12 @@ font-size: 24px;
     height: 40px;
     margin-bottom: 20px;
 }
-.close {
+.close .close-concluir {
+    cursor: pointer;
+    position: absolute;
+}
+
+#close-concluir {
     cursor: pointer;
 }
 
@@ -572,21 +564,6 @@ font-size: 24px;
         transform: translateY(0);
         height: 100%;
         border: 2px solid azure;
-    }
-
-    .btn-close-dois {
-        width: 30px; 
-        height: 10px; 
-        font-size: 40px;
-        color: #ffffff;
-        cursor: pointer; 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        z-index: 1600;
     }
 
     .nav-menu ul {
@@ -890,4 +867,3 @@ font-size: 24px;
     }
 }
 
-;

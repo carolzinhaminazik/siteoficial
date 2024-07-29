@@ -8,15 +8,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const itemCountDisplay = document.querySelector('.item-count');
     const btnFinalizar = document.getElementById('btn-finalizar');
     const allSection = document.getElementById('all');
+
     const closeBtn = document.querySelector('.close-btn');
-    const closeBtnDois = document.querySelector('.btn-close-dois');
-    
+    const emptyCartModal = document.getElementById('empty-cart-modal');
+    const closeEmptyCartButton = document.getElementById('close-empty-cart-modal');
     const loginModal = document.getElementById('login-modal');
     const closeModal = document.getElementById('close-modal');
     const loginForm = document.getElementById('login-form');
     const sizeSelectionModal = document.getElementById('size-selection-modal');
     const closeSizeModal = document.getElementById('close-size-modal');
-    
+    const btnConcluirModal = document.querySelector('btn-concluir-modal');
+    const compraSuccessModal = document.getElementById('compra-success-modal');
 
 
     let itemCount = 0;
@@ -102,11 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
         checkoutBar.classList.remove('active'); 
     });
 
-     // Evento de clique no ícone de fechar menu
-     closeBtnDois.addEventListener('click', () => { navMenu.classList.remove('active'); 
-    });
-
-
     // Função para atualizar o número de itens no resumo da compra
     function updateCheckoutItemCount() {
         itemCount = produtos.reduce((total, produto) => total + produto.quantidade, 0);
@@ -118,7 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para limpar a lista de produtos no resumo da compra
     function clearCheckoutList() {
         checkoutList.innerHTML = '';
-      
         produtos.forEach(produto => produto.quantidade = 0);
         updateCheckoutItemCount();
     }
@@ -176,40 +172,75 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Exibir o modal de sucesso
 function showPurchaseSuccessModal() {
-    document.getElementById('compra-success-modal').style.display = 'flex';
+    compraSuccessModal.style.display = 'flex';
 }
 
 // Ocultar o modal de sucesso
 function closePurchaseSuccessModal() {
-    document.getElementById('compra-success-modal').style.display = 'none';
+    compraSuccessModal.style.display = 'none';
 }
 
-// Adicionar evento ao botão de fechar
-document.getElementById('btn-concluir-modal').addEventListener('click', closePurchaseSuccessModal);
-document.getElementById('close-concluir').addEventListener('click', closePurchaseSuccessModal);
+  // Adicionar evento ao botão de concluir modal
+  if (btnConcluirModal) {
+    btnConcluirModal.addEventListener('click', closePurchaseSuccessModal);
+} 
 
+// Adicionar evento ao botão de fechar do modal de sucesso
+const closeConcluir = document.getElementById('close-concluir');
+if (closeConcluir) {
+    closeConcluir.addEventListener('click', closePurchaseSuccessModal);
+} else {
+    console.error('Botão de fechar do modal de sucesso não encontrado.');
+}
 
       // Mostrar o modal de seleção de tamanho
       function showSizeSelectionModal() {
         sizeSelectionModal.style.display = 'flex';
     }
 
-    // Fechar o modal de seleção de tamanho
-    closeSizeModal.addEventListener('click', () => {
-        sizeSelectionModal.style.display = 'none';
-    });
+   // Função para fechar o modal de seleção de tamanho
+   function closeSizeSelectionModal() {
+    sizeSelectionModal.style.display = 'none';
+}
+
+   // Adicionar evento de clique ao botão de fechar do modal de seleção de tamanho
+   if (closeSizeModal) {
+    closeSizeModal.addEventListener('click', closeSizeSelectionModal);
+} else {
+    console.error('Botão de fechar do modal de seleção de tamanho não encontrado.');
+}
 
       // Exibir o modal ao clicar no botão de finalizar
     btnFinalizar.addEventListener('click', () => {
-        if (itemCount > 0) { loginModal.style.display = 'flex';
-         } else { alert('Adicione produtos ao carrinho antes de finalizar a compra');
+        if (itemCount > 0) { 
+            loginModal.style.display = 'flex';
+         } else {
+            emptyCartModal.style.display = 'flex';
             }
         });
+        
+        // Função para fechar o modal de carrinho vazio
+        function closeEmptyCartModal() {
+            emptyCartModal.style.display = 'none';
+        }
 
-    // Fechar o modal ao clicar no botão de fechar
-    closeModal.addEventListener('click', () => {
+       // Adicionar evento ao botão de fechar do modal de carrinho vazio
+    if (closeEmptyCartButton) {
+        closeEmptyCartButton.addEventListener('click', closeEmptyCartModal);
+    } else {
+        console.error('Botão de fechar do modal de carrinho vazio não encontrado.');
+    }
+
+      // Função para fechar o modal de login
+    function closeModalFunction() {
         loginModal.style.display = 'none';
-    });
+    }
+      // Adicionar evento de clique ao botão de fechar do modal de login
+      if (closeModal) {
+        closeModal.addEventListener('click', closeModalFunction);
+    } else {
+        console.error('Botão de fechar do modal de login não encontrado.');
+    }
 
     //  formulário de login
     loginForm.addEventListener('submit', (event) => {
@@ -218,7 +249,7 @@ document.getElementById('close-concluir').addEventListener('click', closePurchas
         const password = document.getElementById('password').value;
 
         if (email && password) {
-            loginModal.style.display = 'none';
+            closeModalFunction();
             showPurchaseSuccessModal();
             clearCheckoutList();
         } else {
@@ -255,6 +286,7 @@ document.getElementById('close-concluir').addEventListener('click', closePurchas
 
         return divProduto;
     }
+
     // Adiciona cada produto à seção de produtos
     produtos.forEach(produto => {
     const produtoElement = criarProduto(produto);
