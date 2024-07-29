@@ -189,9 +189,7 @@ function closePurchaseSuccessModal() {
 const closeConcluir = document.getElementById('close-concluir');
 if (closeConcluir) {
     closeConcluir.addEventListener('click', closePurchaseSuccessModal);
-} else {
-    console.error('Botão de fechar do modal de sucesso não encontrado.');
-}
+} 
 
       // Mostrar o modal de seleção de tamanho
       function showSizeSelectionModal() {
@@ -206,9 +204,7 @@ if (closeConcluir) {
    // Adicionar evento de clique ao botão de fechar do modal de seleção de tamanho
    if (closeSizeModal) {
     closeSizeModal.addEventListener('click', closeSizeSelectionModal);
-} else {
-    console.error('Botão de fechar do modal de seleção de tamanho não encontrado.');
-}
+} 
 
       // Exibir o modal ao clicar no botão de finalizar
     btnFinalizar.addEventListener('click', () => {
@@ -227,9 +223,7 @@ if (closeConcluir) {
        // Adicionar evento ao botão de fechar do modal de carrinho vazio
     if (closeEmptyCartButton) {
         closeEmptyCartButton.addEventListener('click', closeEmptyCartModal);
-    } else {
-        console.error('Botão de fechar do modal de carrinho vazio não encontrado.');
-    }
+    } 
 
       // Função para fechar o modal de login
     function closeModalFunction() {
@@ -238,9 +232,7 @@ if (closeConcluir) {
       // Adicionar evento de clique ao botão de fechar do modal de login
       if (closeModal) {
         closeModal.addEventListener('click', closeModalFunction);
-    } else {
-        console.error('Botão de fechar do modal de login não encontrado.');
-    }
+    } 
 
     //  formulário de login
     loginForm.addEventListener('submit', (event) => {
